@@ -1,0 +1,55 @@
+filename:
+	The.Show.S01E01.The.Episode.Title.avi
+
+parse string:
+	%show_name%.S%season%E%episode%.%episode_title%.%extension%
+
+rename mask:
+	%season%%episode% - %episode_title%.%extension%
+
+algorithm brainstorm:
+	parse the filename splitting on character sets which don't appear between matched '%' in the parse string
+	split the file on above character sets, storing splits as parse string variables
+		this could be done without regex by recursively splitting the string
+			splitTokens = ('.S','E','.','.')
+			
+	create a dictionary for each parse string variable
+		key = parse string variable (without %)
+		value = related string split in file name
+	rename file according to values in rename_mask dictionary
+
+warning conditions:
+	no splitting tokens given -- i.e. all mask variables passed
+		e.g. %show_name%%season%%extension%
+	incomplete parse string variable definitions
+		i.e. odd number of '%' in parse string
+
+complications:
+	need to write a parser for the parse string variables
+	parse string variables may not be the first substrings in the file name
+	writing the regex using the split
+
+version ideas:
+	v1 is just a simple regex renamer
+		takes a regex string and a list of files
+		outputs an example of the resulting rename
+		prompts user for continue or abandon
+		if continue, rename all files according to result
+	variation on the above:
+		regex string assigns parse variables to regex, e.g.:
+			"%season% = S(\d{2}) || %episode% = E(\d{2})"
+		split the regex string on the separator "||"
+		for each split regex string:
+			split each substring on "=", then trim
+			add %parser var% to dictionary as key with regex as value
+		iterate over dictionary keys, using their values as regex to search through file name for matches
+		create second dictionary with same keys, but actual match values
+		rename file according to rename mask
+
+ideas for extensions:
+	pass a file which contains formatted file names
+		identify search string in file name and rename matching files using names in input file
+	expand the app to become a broad filename utility
+		replace substrings in all files (e.g. "." -> " ")
+	maintain a log file for all rename operations
+		this should be on by default, and can be read back into the app to reverse renamings

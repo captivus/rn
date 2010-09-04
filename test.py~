@@ -1,0 +1,15 @@
+import sys
+import getopt
+
+def main(argv):
+	try:
+		opt, args = getopt.getopt(argv, "","")
+	except getopt.GetoptError:
+		print 'Exiting due to error' + GetoptError
+		sys.exit(2)
+
+	for arg in args:
+		print arg
+	
+	if __name__ == main:
+		main(sys.argv[1:])
