@@ -30,6 +30,10 @@ complications:
 	writing the regex using the split
 
 version ideas:
+	revise the app to be OO
+		rn object operates on a list of files
+		file list is internal to the object?
+		see class interface section
 	v1 is just a simple regex renamer
 		takes a regex string and a list of files
 		outputs an example of the resulting rename
@@ -53,3 +57,24 @@ ideas for extensions:
 		replace substrings in all files (e.g. "." -> " ")
 	maintain a log file for all rename operations
 		this should be on by default, and can be read back into the app to reverse renamings
+
+description of the program's objectives:
+	the program should take a list of files and rename them, according to a renaming mask including user-defined variables
+	the program should accept, as input, a list of similarly-named files to be renamed
+	the program should also accept, as input, a string defining variables comprised of regex expressions matching
+		substrings of the file name
+	the program should accept, as input, a string defining a renaming mask which uses a combination of the
+		variables and user-input strings
+	the program should rename the list of files in accordance with the renaming mask
+
+class interface notes:
+	properties:
+		file list
+		naming mask
+			??should this be abstracted into a class of its own??
+		renaming mask
+	methods:
+		set file list
+		set matching variables
+		set renaming mask
+		

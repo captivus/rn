@@ -1,4 +1,7 @@
 #!/usr/bin/python
+
+# pseudocode definition
+# imports
 import sys
 import os
 import getopt
@@ -7,6 +10,7 @@ import getopt
 INPUT_REGEX_SPLIT_TOKEN = '||'
 PARSE_STRING_VARIABLE_TOKEN = '%'
 
+# main program
 def main(argv):
 	# define command line option strings for getopts
 	cmdLineShortOpts = 'hvd:s:m:r:f:'
@@ -15,64 +19,72 @@ def main(argv):
 	_DEBUG = False
 	# process command line options
 	try:
-		opts, args = getopt.getopt(argv, cmdLineShortOpts, cmdLineLongOpts)
-		print 'printing opts'
-		for o in opts: print o
-		
-		# process command-line options
-		for opt, arg in opts:
-			if opt in ('v', '--debug'):
-				# turn on debugging output
-				_DEBUG = True 
-				
-			elif opt in('-h', '--help'):
-				# show usage help
-				usage()
-				sys.exit()
-			elif opt in ('d', '--dir'):
-				# set directory to first command line option
-				dirPath = arg
-				if _DEBUG:
-					print 'just set dirPath'
-			elif opt in ('s', '--search'):
-				# split the input regex string
-				parsestrings = split_input_regex_string(arg)
-				searchdict = split_parse_string_variables(parsestrings)
-				if _DEBUG:
-					print 'just split input parse string'
-			elif opt in ('m', '--mask'):
-				renamemask = arg
-				if _DEBUG:
-					print 'just set renamemask'
-			elif opt in ('r', '--replace'):
-				replacestring = arg
-				if _DEBUG:
-					print 'just set replacestring'
-			elif opt in ('f', '--files'):
-				# identify list of files to rename
-				fileList = arg
-				if _DEBUG:
-					print 'printing files'
-					#for file in fileList:
-					#	print file
+		process_args(argv)
+	# TODO: change this to reflect argparse
 	except getopt.GetoptError:
 		usage()
 		if _DEBUG:
 			print "exiting due to GetoptError"
 		sys.exit(2)
 
+# parse arguments
+# 	help
+#		debug
+#		directory
+#		string_identifiers
+#		replace_chars
+#		rename_mask
+#		file_list
+def process_args(args):
+
+	opts, args = getopt.getopt(argv, cmdLineShortOpts, cmdLineLongOpts)
+	print 'printing opts'
+	for o in opts: print o
+
+	# process command-line options
+	for opt, arg in opts:
+		if opt in ('v', '--debug'):
+			# turn on debugging output
+			_DEBUG = True 
+			
+		elif opt in('-h', '--help'):
+			# show usage help
+			usage()
+			sys.exit()
+		elif opt in ('d', '--dir'):
+			# set directory to first command line option
+			dirPath = arg
+			if _DEBUG:
+				print 'just set dirPath'
+		elif opt in ('s', '--search'):
+			# split the input regex string
+			parsestrings = split_input_regex_string(arg)
+			searchdict = split_parse_string_variables(parsestrings)
+			if _DEBUG:
+				print 'just split input parse string'
+		elif opt in ('m', '--mask'):
+			renamemask = arg
+			if _DEBUG:
+				print 'just set renamemask'
+		elif opt in ('r', '--replace'):
+			replacestring = arg
+			if _DEBUG:
+				print 'just set replacestring'
+		elif opt in ('f', '--files'):
+			# identify list of files to rename
+			fileList = arg
+			if _DEBUG:
+				print 'printing files'
+				#for file in fileList:
+				#	print file
+
+# get directory listing, if appropriate
 # return a list of files in given directory
 def getfiles(dir):
 	if _DEBUG:
 		print "in getfiles"
 	return [f for f in os.listdir(dir) if os.path.isfile(os.listdir(dir))]
-
-# print command line usage
-def usage():
-	print "usage()"
-	pass
-	#print sys.argv[0] + "USAGE HERE"
-
+# parse string_identifiers
 def split_input_regex_string(instring):
 	if _DEBUG:
 		print 'splitting input regex string'
@@ -91,6 +103,19 @@ def split_parse_string_variables(inlist):
 		for k in vardict.keys():
 			print vardict[k]
 	return vardict
+
+# identify file list
+# present sample renamed file
+# prompt for confirmation
+# rename files
+# log renaming actions to text file
+
+# print command line usage
+def usage():
+	print "usage()"
+	pass
+	#print sys.argv[0] + "USAGE HERE"
+
 
 if __name__ == '__main__':
 	main(sys.argv[1:])

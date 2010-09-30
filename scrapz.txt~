@@ -51,3 +51,5 @@ ideas for extensions:
 		identify search string in file name and rename matching files using names in input file
 	expand the app to become a broad filename utility
 		replace substrings in all files (e.g. "." -> " ")
+	maintain a log file for all rename operations
+		this should be on by default, and can be read back into the app to reverse renamings
