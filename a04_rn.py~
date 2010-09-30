@@ -1,0 +1,54 @@
+# Renamer.py
+# class defining Renamer objects, as used by rn.py
+
+class Renamer(fileList = (), nameMask = {}, nameMaskString = "", renamingMask = "", nameMaskVariableSeparator = "||")
+	def __init__(self):
+		self.fileList = fileList
+		self.nameMask = nameMask
+		self.nameMaskString = nameMaskString
+		self.renamingMask = renamingMask
+		self.NAME_MASK_VARIABLE_SEPARATOR = nameMaskVariableSeparator
+	
+	def parseNameMaskString(self, nameMaskString):
+		if not(nameMaskString):
+			print("ERROR:  Must supply naming mask string")
+		else:
+			parselist = nameMaskString.split(self.NAME_MASK_VARIABLE_SEPARATOR)
+			for varstring in parselist:
+				var, regex = varstring.split("=")
+				var = var.strip()
+				regex = regex.strip()
+				self.nameMask[var] = regex
+	
+	def printNamingMask(self):
+		for key in self.nameMask.keys():
+			print self.nameMask[key]
+	
+	def setNameMaskString(self, nameMaskString):
+		self.nameMaskString = nameMaskString
+		self.parseNameMaskString(nameMaskString)
+
+	def getNameMaskString():
+		return self.nameMaskString
+
+	def setNameMask(self, nameMask):
+		self.nameMask = nameMask
+
+	def getNameMask():
+		return self.nameMask
+
+	def setRenamingMask(self, renamingMask):
+		self.renamingMask = renamingMask
+	
+	def getRenamingMask():
+		return self.renamingMask
+
+	def setFileList(self, fileList):
+		self.fileList = fileList
+
+	def getFileList():
+		return self.fileList
+
+	def renameFiles(self):
+		pass
+
