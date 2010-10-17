@@ -13,10 +13,31 @@ algorithm brainstorm:
 		this could be done without regex by recursively splitting the string
 			splitTokens = ('.S','E','.','.')
 			
-	create a dictionary for each parse string variable
-		key = parse string variable (without %)
+	user inputs naming mask variables + regex
+	create a dictionary entry for each parse string variable
+		key = parse string variable ( e.g. %season%)
 		value = related string split in file name
+	parse naming mask string into dictionary of variables + regex
+	parse renaming mask and create renamed files dictionary
+		key = old file name
+		value = new file name
+		one (sloppy) algo for doing this is to simply replace every occurrence of a namingMaksk key with its related value
+			this should be improved later to only replace those keys present in the renaming mask
+		another approach is to use Python's regex functions and identify mask variables in the renaming mask
+			then use the groups feature to iteratively assign and substitute variables
 	rename file according to values in rename_mask dictionary
+		new dictionary with entries with values for naming mask variables
+		must parse each file name using naming mask dictionary first
+		results stored in renaming mask dictionary
+
+	processFile():
+		apply regex patterns in namingMask dictionary and store results for each in renamingMask dictionary
+		regex search for namingMask variables in renamingMaskString
+			re.findall() will return all occurrences of a pattern
+			use the resulting groups to assign values from renamingMask dictionary
+			assume that, for the time being, you've only defined variables you care about using in the renaming mask
+			for each key in namingMask:
+				se
 
 warning conditions:
 	no splitting tokens given -- i.e. all mask variables passed

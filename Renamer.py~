@@ -8,17 +8,14 @@ import os
 
 class Renamer():
 	# TODO: create _DEBUG flag and implement it
-	def __init__(self, fileList = (), dirPath = "", namingMask = {}, namingMaskString = "", 
-			renamingMaskString = "", namingMaskVariableSeparator = "||", namingMaskVariableTag = "%", debug = False):
+	def __init__(self, fileList = (), dirPath = "", namingMask = {}, namingMaskString = "", renamingMaskString = "", namingMaskVariableSeparator = "||", namingMaskVariableTag = "%", debug = False):
 		# TODO: use setter functions for this init
-		setFileList(fileList)
-		setDirPath(dirPath)
-		setNamingMask(namingMask)
-		setNamingMaskString(namingMaskString)
-		setRenamingMaskString(renamingMaskString)
-		setRenamingMask(renamingMask)
-		setNAMING_MASK_VARIABLE_SEPARATOR(namingMaskVariableSeparator)
-		# BOOKMARK
+		self.fileList = fileList
+		self.dirPath = dirPath
+		self.namingMask = namingMask
+		self.namingMaskString = namingMaskString
+		self.renamingMaskString = renamingMaskString
+		self.renamingMask = {}
 		self.NAMING_MASK_VARIABLE_SEPARATOR = namingMaskVariableSeparator
 		self.NAMING_MASK_VARIABLE_TAG	 = namingMaskVariableTag
 		self._DEBUG = debug
@@ -57,12 +54,6 @@ class Renamer():
 	def getRenamingMask():
 		return self.renamingMask
 
-	def getRenamingMaskString():
-		return self.renamingMaskString
-
-	def setRenamingMaskString(self, renamingMaskString):
-		self.renamingMaskString = renamingMaskString
-
 	def setFileList(self, fileList):
 		self.fileList = fileList
 
@@ -74,18 +65,6 @@ class Renamer():
 	
 	def getDirPath():
 		return self.dirPath
-
-	def getNAMING_MASK_VARIABLE_SEPARATOR():
-		return self.NAMING_MASK_VARIABLE_SEPARATOR
-
-	def setNAMING_MASK_VARIABLE_SEPARATOR(self, namingMaskVariableSeparator):
-		self.NAMING_MASK_VARIABLE_SEPARATOR = namingMaskVariableSeparator
-	
-	def getNAMING_MASK_VARIABLE_TAG():
-		return self.NAMING_MASK_VARIABLE_TAG
-
-	def setNAMING_MASK_VARIABLE_TAG(self, namingMaskVariableTag):
-		self.NAMING_MASK_VARIABLE_TAG = namingMaskVariableTag
 
 	# create dictionary of renamed files
 	def 
